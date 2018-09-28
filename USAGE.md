@@ -1,266 +1,91 @@
-# [todo.txt-cli](http://todotxt.org) Usage
-
-```shell
-todo.sh [-fhpantvV] [-d todo_config] action [task_number] [task_description]
-```
-
-## Actions
-
-### `add`
-Adds THING I NEED TO DO to your todo.txt file on its own line.  
-
-Project and context notation optional.  
-
-Quotes optional.
-
-```shell
-todo.sh add "THING I NEED TO DO +project @context"
-todo.sh a "THING I NEED TO DO +project @context"
-```
-
-### `addm`
-Adds FIRST THING I NEED TO DO to your todo.txt on its own line and adds SECOND THING I NEED TO DO to you todo.txt on its own line.
-
-Project and context notation optional.
-
-```shell
-todo.sh addm "FIRST THING I NEED TO DO +project1 @context
-SECOND THING I NEED TO DO +project2 @context"
-```
-
-### `addto`      
-Adds a line of text to any file located in the todo.txt directory.
-
-For example, `addto inbox.txt "decide about vacation"`
-
-```shell
-todo.sh addto DEST "TEXT TO ADD"
-```
-
-### `append`
-Adds TEXT TO APPEND to the end of the task on line ITEM#.
-
-Quotes optional.
-
-```shell
-todo.sh append ITEM# "TEXT TO APPEND"
-todo.sh app ITEM# "TEXT TO APPEND"
-```
-
-### `archive`
-Moves all done tasks from todo.txt to done.txt and removes blank lines.
-
-```shell
-todo.sh archive
-```
-
-### `command`
-Runs the remaining arguments using only todo.sh builtins.
-
-Will not call any `.todo.actions.d` scripts.
-
-```shell
-todo.sh command [ACTIONS]
-```
-
-### `deduplicate`
-Removes duplicate lines from todo.txt.
-
-```shell
-todo.sh deduplicate
-```
-
-### `del`
-Deletes the task on line ITEM# in todo.txt. If TERM specified, deletes only TERM from the task.
-
-```shell
-todo.sh del ITEM# [TERM]
-todo.sh rm ITEM# [TERM]
-```
-
-### `depri`
-Deprioritizes (removes the priority) from the task(s) on line ITEM# in todo.txt.
-
-```shell
-todo.sh depri ITEM#[, ITEM#, ITEM#, ...]
-todo.sh dp ITEM#[, ITEM#, ITEM#, ...]
-```
-
-### `do`
-Marks task(s) on line ITEM# as done in todo.txt.
-
-```shell
-todo.sh do ITEM#[, ITEM#, ITEM#, ...]
-```
-
-### `help`
-Display help about usage, options, built-in and add-on actions, or just the usage help for the passed ACTION(s).
-
-```shell
-todo.sh help [ACTION...]
-```
-
-### `list`
-Displays all tasks that contain TERM(s) sorted by priority with line numbers.  Each task must match all TERM(s) (logical AND); to display tasks that contain any TERM (logical OR), use `"TERM1\|TERM2\|..."` (with quotes), or `TERM1\\|TERM2` (unquoted). Hides all tasks that contain TERM(s) preceded by a minus sign (i.e. `-TERM`). 
-
-If no TERM specified, lists entire todo.txt.
-​    
-```shell
-todo.sh list [TERM...]
-todo.sh ls [TERM...]
-```
-
-### `listall`
-Displays all the lines in todo.txt AND done.txt that contain TERM(s) sorted by priority with line  numbers. Hides all tasks that contain TERM(s) preceded by a minus sign (i.e. `-TERM`).
-
-If no TERM specified, lists entire todo.txt AND done.txt concatenated and sorted.
-
-```shell
-todo.sh listall [TERM...]
-todo.sh lsa [TERM...]
-```
-
-### `listaddons`
-Lists all added and overridden actions in the actions directory.
-
-```shell
-todo.sh listaddons
-```
-
-### `listcon`
-Lists all the task contexts that start with the @ sign in todo.txt.
-
-If TERM specified, considers only tasks that contain TERM(s).
-
-```shell
-todo.sh listcon [TERM...]
-todo.sh lsc [TERM...]
-```
-
-### `listfile`
-Displays all the lines in SRC file located in the todo.txt directory, sorted by priority with line  numbers. If TERM specified, lists all lines that contain TERM(s) in SRC file. Hides all tasks that contain TERM(s) preceded by a minus sign (i.e. `-TERM`).
-
-Without any arguments, the names of all text files in the todo.txt directory are listed.
-
-```shell
-todo.sh listfile [SRC [TERM...]]
-todo.sh lf [SRC [TERM...]]
-```
-
-### `listpri`
-Displays all tasks prioritized PRIORITIES. PRIORITIES can be a single one (A) or a range (A-C). If no PRIORITIES specified, lists all prioritized tasks. If TERM specified, lists only prioritized tasks that contain TERM(s). Hides all tasks that contain TERM(s) preceded by a minus sign (i.e. `-TERM`).
-
-```shell
-todo.sh listpri [PRIORITIES] [TERM...]
-todo.sh lsp [PRIORITIES] [TERM...]
-```
-
-### `listproj`
-Lists all the projects (terms that start with a `+` sign) in todo.txt. If TERM specified, considers only tasks that contain TERM(s).
-
-```shell
-todo.sh listproj [TERM...]
-todo.sh lsprj [TERM...]
-```
-
-### `move`
-Moves a line from source text file (SRC) to destination text file (DEST). Both source and destination file must be located in the directory defined in the configuration directory. When SRC is not defined it's by default todo.txt.
-
-```shell
-todo.sh move ITEM# DEST [SRC]
-todo.sh mv ITEM# DEST [SRC]
-```
-
-### `prepend`
-Adds TEXT TO PREPEND to the beginning of the task on line ITEM#. Quotes optional.
-
-```shell
-todo.sh prepend ITEM# "TEXT TO PREPEND"
-todo.sh prep ITEM# "TEXT TO PREPEND"
-```
-
-### `pri`
-Adds PRIORITY to task on line ITEM#.  If the task is already prioritized, replaces current priority with new PRIORITY. PRIORITY must be a letter between A and Z.
-
-```shell
-todo.sh pri ITEM# PRIORITY
-todo.sh p ITEM# PRIORITY
-```
-
-### `replace`
-Replaces task on line ITEM# with UPDATED TODO.
-
-```shell
-todo.sh replace ITEM# "UPDATED TODO"
-```
-
-### `report`
-Adds the number of open tasks and done tasks to report.txt.
-
-```shell
-todo.sh report
-```
-
-### `shorthelp`
-List the one-line usage of all built-in and add-on actions.
-
-```shell
-todo.sh shorthelp
-```
-
-
-## Options
-
-### `-@`
-Hide context names in list output. Use twice to show context names (default).
-
-### `-+`
-Hide project names in list output. Use twice to show project names (default).
-
-### `-c`
-Color mode
-
-### `-d CONFIG_FILE`
-Use a configuration file other than the default `~/.todo/config`
-
-### `-f`
-Forces actions without confirmation or interactive input.
-
-### `-h`
-Display a short help message; same as action "shorthelp"
-
-### `-p`
-Plain mode turns off colors
-
-### `-P`
-Hide priority labels in list output. Use twice to show priority labels (default).
-
-### `-a`
-Don't auto-archive tasks automatically on completion
-
-### `-A`
-Auto-archive tasks automatically on completion
-
-### `-n`
-Don't preserve line numbers; automatically remove blank lines on task deletion.
-
-### `-N`
-Preserve line numbers
-
-### `-t`
-Prepend the current date to a task automatically when it's added.
-
-### `-T`
-Do not prepend the current date to a task automatically when it's added.
-
-### `-v`
-Verbose mode turns on confirmation messages
-
-### `-vv`
-Extra verbose mode prints some debugging information and additional help text
-
-### `-V`
-Displays version, license and credits
-
-### `-x`
-Disables `TODOTXT_FINAL_FILTER`
+  languages: [
+    new MLanguage('español').create({
+      footer: 'Desarrollado por',
+      hello: 'hola',
+      general: 'General',
+      languajes: 'Idiomas',
+      footersocial: 'Siguenos en las redes',
+      home: {
+        title: 'Inicio',
+        keywords: 'hotel, hospedaje, Tepoztlán, Tepoztlan, tepoz, tepozteco, cuartos, estacionamiento, temazcal, mirador, economico, barato, centrico, hospedaje don isidro',
+        description: 'Te esperamos en Tepoztlán, Morelos. Ven y hospedate a tan solo 50 metros del zócalo de Tepoztlán, ¡te esperamos con las puertas abiertas! Hospédate en nuestras comodas, accesibles y economicas habitaciones en las que disfrutaras de agua caliente, Internet, TV por cable, entre otros servicios como Temazcal, masajes y estacionamiento!',
+        p1: 'Te esperamos en',
+        p2: 'Tepoztlán, Morelos',
+        p3: 'Hospedaje Don Isidro',
+        p4: 'Ven y hospédate a tan solo 50 metros del zócalo de Tepoztlán, ¡te esperamos con las puertas abiertas! Hospédate en nuestras cómodas, accesibles y económicas habitaciones en las que disfrutarás de agua caliente, Internet, TV por cable, entre otros servicios como Temazcal, masajes y estacionamiento!',
+        p5: 'No olvides preguntar por nuestros paquetes.'
+      },
+      rooms: {
+        title: 'Habitaciones',
+        keywords: 'habitaciones, cuartos, renta, hotel, hospedaje, alojamiento,baratas, economicas, baratos, economicos, centricos, centricas, bien ubicadas, tepoztlan, magico',
+        description: 'Contamos con habitaciones disponibles para 2, 3 y 4 personas, todas incluyen TV por cable, Internet, agua fría y caliente, estacionamiento, etc... Pero lo mejor de todo es la cercania al pueblo, ya que estamos ubicados en la avenida principal a media cuadra del parque central, con toda facilidad y confianza puedes ir y venir a la hora que gustes... También tendrás acceso a nuestro mirador para que te cargues de energía con el mágico cerro del tepozteco.',
+        p1: 'Nuestras',
+        p2: 'habitaciónes',
+        p3: '¡Pregunta por los paquetes exclusivos para nuestros huéspedes!',
+        p4: 'Contamos con habitaciones disponibles para 2, 3 y 4 personas, todas incluyen TV por cable, Internet, agua fría y caliente, estacionamiento, etc...',
+        p5: 'Pero lo mejor de todo es la cercanía al pueblo, ya que estamos ubicados en la avenida principal a media cuadra del parque central, con toda facilidad y confianza puedes ir y venir a la hora que gustes... También tendrás acceso a nuestro mirador para que te cargues de energía con el mágico cerro del tepozteco.'
+      },
+      massages: {
+        title: 'Masajes',
+        keywords: 'masajes, spa, magia, magico, economico, barato, centrico, de calidad, mexica, maya, prehispanico, ritual, energia, limpia, limpieza, vital',
+        description: 'Experimente las influencias depurativas de las plantas autóctonas mexicanas cultivadas por campesinos tepoztecos y convertidas en medicina por medio de los shamanes de este magico pueblo. Y confortecete en las afectuosas manos de nuestros especialistas experimentados, dedicados a nutrirte a nuevos niveles de rejuvenecimiento y bienestar con una amplia gama de terapias médicas y de belleza.',
+        p1: 'Siente la',
+        p2: 'magia',
+        p3: 'Inspirados en la medicina ancestral, nuestros expertos se han dedicado a estudiar diversas técnicas de relajación, potencializando cada tratamiento a través de la aromaterapia y plantas medicinales.',
+        p4: 'Tú mismo sentirás en todo tu cuerpo los efectos de estas terapias maravillosas antiestrés, así como una profunda hidratación en tu piel gracias a los aceites esenciales empleados',
+        p5: 'Anímate a vivir una experiencia única y déjate consentir por nuestros expertos, de manera que tu visita a este hermoso Pueblo Mágico sea completa y tan relajante que nunca la olvides.',
+        p6: 'Para una máxima relajación podrás disfrutar de la hermosa vista de nuestro mirador.'
+      },
+      temazcal: {
+        title: 'Temazcal',
+        keywords: 'temazcal, nacimiento, ritual, azteca, maya, mexicano, mexica, magia, cosmo, ceremonia, sagrada, barato, economico, tepoztlan, morelos, tepozteco',
+        description: 'Esta experiencia única es acompañada del ritual ancestral para poder entrar a este baño, los cantos en su interior convertirán te permitirán relajarte y reencontrarte contigo mismo, te darás cuenta de que en verdad la desintoxicación de tu cuerpo era necesaria y al final cuando el guía del Temazcal te brinde el final de este baño sagrado, al salir de este lugar entenderás por completo que en la vida no solo estamos para trabajar y explotar a nuestro cuerpo, también hay que cuidarlo y apapacharlo.',
+        p1: 'Vuelve a',
+        p2: 'Nacer',
+        p3: '¿Cómo es posible volver a nacer?',
+        p4: 'Inspirado en antigüos rituales indígenas, el Temazcal es una ceremonia que tiene como objetivo depurar el cuerpo físico y mental mediante un baño de vapor intencionado. Es una ceremonia ancestral y una profunda vivencia de renacimiento en el vientre de la Pacha Mama.',
+        p5: 'El temazcal es una ceremonia de baño de vapor prehispanico que desintoxica el cuerpo.',
+        p6: 'Se cree que a través del sudor ofrendamos un sacrificio en el que depuramos tanto el cuerpo como el campo energético. Este baño es una ceremonia en la que el cuerpo rejuvenece, tonifica la piel, purifica las vías respiratorias, disminuye los problemas oseos, depura el aparato digestivo, alivia molestias pre-menstruales, invita a la introspección y reflexión, ayuda a la reeconexión con la madre Tierra, beneficia la circulación sanguinea, ayuda a bajar de peso, relaja el sistema nervioso, reduce el estrés, disminuye enfermedades como dolores reumáticos y gripe.',
+        p7: 'Atrévete, será una experiencia inolvidable, estamos seguros.',
+        p8: 'Recuerda que es fundamental traer traje de baño y toalla.'
+      },
+      galery: {
+        title: 'Galeria',
+        keywords: 'fotos, tepoztlan, morelos, magico, colorido, tepozteco, verde, hospedaje don isidro',
+        description: 'Galería de fotos de "Hospedaje Don Isidro" el hotel más céntrico de Tepoztlán.',
+        p1: 'Vibra',
+        p2: 'tepozteca'
+      },
+      contact: {
+        title: 'Contacto',
+        keywords: 'hotel, barato, habitacion, barata, cuarto, economico, tepoztlan, telefono, hospedaje, hostal, centrico, tepoztlan, morelos, hospedaje don isidro, como lleguar, contacto',
+        description: 'Envíanos un mensaje para responder a cualquier duda u orientarte en cualquier asunto. Si necesita asistencia inmediata, comunícate vía telefónica 01 (739) 39 538 07.',
+        p1: '',
+        p2: 'Contactanos',
+        p3: 'Envíanos un mensaje para responder a cualquier duda u orientarte en cualquier asunto. Si necesita asistencia inmediata, comunícate vía telefónica 01 (739) 39 538 07.',
+        contactdettails: {
+          title: 'Detalles de contacto',
+          line1: 'Calle 5 mayo No.13 Barrio de San Miguel, Tepoztlán, Morelos.',
+          line2: '01 (739) 39 538 07',
+          line3: 'contacto@hospedajedonisidro.com'
+        },
+        form: {
+          instructions: 'Por favor llena los espacios en blanco con la información solicitada y te atenderemoscon gusto lo antes posible.',
+          requiered: 'Campos requeridos. *',
+          name: 'nombre',
+          email: 'email',
+          telephone: 'teléfono',
+          city: 'ciudad',
+          contry: 'país',
+          message: 'mensaje',
+          submit: 'enviar',
+          error: 'Mensaje no enviado.',
+          error1: ' Llena todos los campos.',
+          error2: ' Escribe un email válido.',
+          error3: ' Escribe un telŕfono válido.',
+          error4: ' Inténtalo más tarde.',
+          submited: 'Tu mensaje ha sido enviado.'
+        }
+      }
+    })
+  ]
