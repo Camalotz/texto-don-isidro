@@ -8,7 +8,7 @@
       home: {
         title: 'Inicio',
         keywords: 'hotel, hospedaje, Tepoztlán, Tepoztlan, tepoz, tepozteco, cuartos, estacionamiento, temazcal, mirador, economico, barato, centrico, hospedaje don isidro',
-        description: '',
+        description: 'Te esperamos en Tepoztlán, Morelos. Ven y hospédate a tan solo 50 metros del zócalo de Tepoztlán, ¡te esperamos con las puertas abiertas! Quédate en nuestras cómodas, accesibles y económicas habitaciones en las que disfrutarás de agua caliente, Internet, TV por cable, entre otros servicios como Temazcal, masajes y estacionamiento.',
         p1: 'Te esperamos en',
         p2: 'Tepoztlán, Morelos',
         p3: 'Hospedaje Don Isidro',
@@ -18,7 +18,7 @@
       rooms: {
         title: 'Habitaciones',
         keywords: 'habitaciones, cuartos, renta, hotel, hospedaje, alojamiento,baratas, economicas, baratos, economicos, centricos, centricas, bien ubicadas, tepoztlan, magico',
-        description: '',
+        description: 'Nuestras habitaciones son ideales para aquellas personas que deseen disfrutar al máximo del pueblo mágico de Tepoztlán y que busquen un espacio cómodo, seguro y accesible para llegar a dormir y relajarse con un mirador espectacular, un masaje o un temazcal; ¡o las tres cosas!',
         p1: 'Nuestras',
         p2: 'habitaciónes',
         p3: '¡Pregunta por los paquetes disponibles!',
@@ -28,7 +28,7 @@
       massages: {
         title: 'Masajes',
         keywords: 'masajes, spa, magia, magico, economico, barato, centrico, de calidad, mexica, maya, prehispanico, ritual, energia, limpia, limpieza, vital',
-        description: '',
+        description: 'Inspirados en la medicina ancestral, nuestros expertos se han dedicado a estudiar diversas técnicas de relajación, potencializando cada tratamiento a través de la aromaterapia y plantas medicinales. Tú mismo sentirás en todo tu cuerpo los efectos de estas terapias maravillosas antiestrés, así como una profunda hidratación en tu piel gracias a los aceites esenciales empleados.',
         p1: 'Siente la',
         p2: 'magia',
         p3: 'Inspirados en la medicina ancestral, nuestros expertos se han dedicado a estudiar diversas técnicas de relajación, potencializando cada tratamiento a través de la aromaterapia y plantas medicinales.',
@@ -39,7 +39,7 @@
       temazcal: {
         title: 'Temazcal',
         keywords: 'temazcal, nacimiento, ritual, azteca, maya, mexicano, mexica, magia, cosmo, ceremonia, sagrada, barato, economico, tepoztlan, morelos, tepozteco',
-        description: '',
+        description: 'Inspirado en antigüos rituales indígenas, el Temazcal es una ceremonia que tiene como objetivo desintoxicar el cuerpo físico y emocional mediante un baño de vapor dedicado a alguna circunstancia o vivencia que se desea sanar. Es una ceremonia ancestral y una profunda experiencia de renacimiento en el vientre de la Pacha Mama.',
         p1: 'Vuelve a',
         p2: 'nacer',
         p3: '¿Cómo es posible volver a nacer?',
@@ -59,7 +59,7 @@
       contact: {
         title: 'Contacto',
         keywords: 'hotel, barato, habitacion, barata, cuarto, economico, tepoztlan, telefono, hospedaje, hostal, centrico, tepoztlan, morelos, hospedaje don isidro, como lleguar, contacto',
-        description: '',
+        description: 'Envíanos un mensaje si tienes alguna duda o para orientarte en cualquier asunto. Si necesita asistencia inmediata, comunícate vía telefónica 01 (739) 39 538 07.',
         p1: '',
         p2: 'Contactanos',
         p3: 'Envíanos un mensaje si tienes alguna duda o para orientarte en cualquier asunto. Si necesita asistencia inmediata, comunícate vía telefónica 01 (739) 39 538 07.',
